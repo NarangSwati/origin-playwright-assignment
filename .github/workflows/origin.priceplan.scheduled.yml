@@ -13,10 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HOME: /root
+      BASE_URL: ${{ vars.BASE_URL }}
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
-    env:
-      BASE_URL: ${{ vars.BASE_URL }} # set this in repo Settings → Secrets
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
