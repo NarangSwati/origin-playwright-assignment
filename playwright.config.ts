@@ -19,7 +19,6 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  //reporter: process.env.CI ? "github" : "html",
   reporter: [
     ["html"],
     [
@@ -28,7 +27,8 @@ export default defineConfig({
         title: "Price Plan Test Summary",
         useDetails: true,
         showError: true,
-        showAnnotations: true,
+        showAnnotations: true, 
+        showArtifactsLink: true
       } as GitHubActionOptions,
     ],
   ],
