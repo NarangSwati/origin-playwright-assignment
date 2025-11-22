@@ -19,20 +19,19 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 4 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: process.env.CI ? "github" : "html",
-  // reporter: [
-  //   ["list"],
-  //   ["html"],
-  //   [
-  //     "@estruyf/github-actions-reporter",
-  //     {
-  //       title: "Price Plan Test Summary",
-  //       useDetails: true,
-  //       showError: true,
-  //       showAnnotations: true,
-  //     } as GitHubActionOptions,
-  //   ],
-  // ],
+  //reporter: process.env.CI ? "github" : "html",
+  reporter: [
+    ["html"],
+    [
+      "@estruyf/github-actions-reporter",
+      {
+        title: "Price Plan Test Summary",
+        useDetails: true,
+        showError: true,
+        showAnnotations: true,
+      } as GitHubActionOptions,
+    ],
+  ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
