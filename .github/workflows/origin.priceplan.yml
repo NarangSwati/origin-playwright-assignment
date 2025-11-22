@@ -22,7 +22,7 @@ jobs:
         path: /root/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          ${{ runner.os }}-playwright-
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
