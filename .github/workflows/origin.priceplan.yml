@@ -26,13 +26,15 @@ jobs:
         key: ${{ runner.os }}-playwright-${{ hashFiles('package.json') }}
         restore-keys: |
           ${{ runner.os }}-playwright-
+    - name: Install Playwright OS dependencies
+      run: npx playwright install-deps
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: |
         echo "Cache miss: Installing Playwright browsers..."
-        npx playwright install-deps
+        npx playwright install
     - name: Run Playwright tests
       run: npm run test:headlessqa
     - name: Upload artifacts
