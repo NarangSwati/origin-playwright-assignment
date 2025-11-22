@@ -32,7 +32,7 @@ test.describe("Origin Pricing Plan", () => {
     await PlanPage.a11yAnalysis("PlanPage");
   });
 
-  test.only("Verify search for both elecricity and gas plan for the address provided", async ({}) => {
+  test("Verify search for both elecricity and gas plan for the address provided", async ({}) => {
     test.info().annotations.push({
       type: "TestData",
       description:

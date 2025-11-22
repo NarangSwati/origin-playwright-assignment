@@ -8,7 +8,7 @@ on:
       - '.github/workflows/*'
 jobs:
   priceplan:
-    name: 'Price plan'
+    name: 'Price plan Spec'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
