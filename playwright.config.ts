@@ -27,8 +27,8 @@ export default defineConfig({
         title: "Price Plan Test Summary",
         useDetails: true,
         showError: true,
-        showAnnotations: true, 
-        showArtifactsLink: true
+        showAnnotations: true,
+        showArtifactsLink: true,
       } as GitHubActionOptions,
     ],
   ],

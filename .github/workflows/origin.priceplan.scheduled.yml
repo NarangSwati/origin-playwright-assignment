@@ -5,10 +5,10 @@ on:
     # Runs at 9 AM weekdays
     - cron: "0 9 * * 1-5"
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   priceplan:
-    name: 'Price plan Spec Scheduled'
+    name: "Price plan Spec Scheduled"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
@@ -16,18 +16,18 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Run Playwright tests
-      run: npm run test:headlessqa
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Playwright tests
+        run: npm run test:headlessqa
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
