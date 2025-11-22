@@ -1,6 +1,6 @@
 import { BasePage } from "./base.page";
 import { PlanPage } from "./plan.page";
-import { Page as PlaywrightPage, TestInfo } from "@playwright/test";
+import { Page as PlaywrightPage, TestInfo, Request } from "@playwright/test";
 
 export class OriginEnergyPricingPage extends BasePage {
   private addressInput = this.basePage.getByRole("combobox", {
@@ -67,12 +67,18 @@ export class OriginEnergyPricingPage extends BasePage {
     }
   }
 
-  async selectPlan(planName: string): Promise<PlanPage> {
-    const [newPage] = await Promise.all([
+  async selectPlan(
+    planName: string,
+  ): Promise<{ planPage: PlanPage; request: Request }> {
+    const [newPage, request] = await Promise.all([
       this.basePage.waitForEvent("popup"),
+      this.basePage.waitForRequest(
+        (r) => r.url().includes("www.energymadeeasy.gov.au"),
+        { timeout: 5000 },
+      ),
       this.getPlanLink(planName).click(),
     ]);
     await newPage.waitForLoadState("domcontentloaded");
-    return new PlanPage(newPage, this.testInfo);
+    return { planPage: new PlanPage(newPage, this.testInfo), request };
   }
 }

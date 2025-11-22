@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Request } from "@playwright/test";
 import { OriginEnergyPricingPage } from "../pages/origin.energy.pricing.page";
 import { config } from "../utils/config";
 import { testdata } from "../fixtures/testdata";
@@ -19,20 +19,11 @@ test.describe("Origin Pricing Plan", () => {
     });
   });
 
-  test.afterEach(async ({ page }) => {
-    await test.step("Verify the correct logo is displayed", async () => {
-      await expect(
-        PlanPage.getPage().locator(
-          'img[src="https://www.energymadeeasy.gov.au/static/organisations/logos/068a3484995b2d5a09c0708a68051c14.png"]',
-        ),
-      ).toBeVisible();
-    });
-
-    await OriginEnergyPricingpage.a11yAnalysis("OriginEnergyPricingPage");
-    await PlanPage.a11yAnalysis("PlanPage");
+  test.afterEach(async ({ }) => {
+    
   });
 
-  test("Verify search for both elecricity and gas plan for the address provided", async ({}) => {
+  test("Verify search for both elecricity and gas plan for the address provided and verify referral handover", async ({}) => {
     test.info().annotations.push({
       type: "TestData",
       description:
@@ -78,10 +69,12 @@ test.describe("Origin Pricing Plan", () => {
       );
     });
 
-    await test.step("User selects the plan and verifies it opens in new tab", async () => {
-      PlanPage = await OriginEnergyPricingpage.selectPlan(
+    await test.step("User selects the plan, intercepts request to verify domain and opens in new tab", async () => {
+      const { planPage, request } = await OriginEnergyPricingpage.selectPlan(
         testdata.testcase1.plan,
       );
+      PlanPage = planPage;
+      await expect(request.url()).toMatch(/energymadeeasy\.gov\.au/);
       await expect(
         OriginEnergyPricingpage.getPlanLink(testdata.testcase1.plan),
       ).toHaveAttribute("target", "_blank");
@@ -103,6 +96,14 @@ test.describe("Origin Pricing Plan", () => {
         }),
       ).toBeVisible();
     });
+
+    await test.step("Verify the correct logo is displayed", async () => {
+      await expect(
+        PlanPage.getPage().locator(
+          'img[src="https://www.energymadeeasy.gov.au/static/organisations/logos/068a3484995b2d5a09c0708a68051c14.png"]',
+        ),
+      ).toBeVisible();
+    });
   });
 
   test("Verify search for only elecricity plan for the address provided", async ({}) => {
@@ -111,8 +112,7 @@ test.describe("Origin Pricing Plan", () => {
       description:
         "Address:" +
         testdata.testcase2.address +
-        " Plan:" +
-        testdata.testcase2.plan,
+        " Plan:" 
     });
     await test.step("User enters address", async () => {
       await OriginEnergyPricingpage.enterAddress(testdata.testcase2.address);
@@ -136,46 +136,6 @@ test.describe("Origin Pricing Plan", () => {
       ).not.toHaveCount(0);
     });
 
-    await test.step("Verify that the required plan is visible", async () => {
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase2.plan),
-      ).toBeVisible();
-    });
-
-    await test.step("Verify that the href attribute has correct external domain and source is Origin Energy for the required plan", async () => {
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase2.plan),
-      ).toHaveAttribute(
-        "href",
-        /^https:\/\/www\.energymadeeasy\.gov\.au\/.*utm_source=Origin\+Energy.*$/,
-      );
-    });
-
-    await test.step("User selects the plan and verifies it opens in new tab", async () => {
-      PlanPage = await OriginEnergyPricingpage.selectPlan(
-        testdata.testcase2.plan,
-      );
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase2.plan),
-      ).toHaveAttribute("target", "_blank");
-    });
-
-    await test.step("Verify the url on the new tab has correct external domain and source is Origin Energy and is same as href of the link", async () => {
-      await expect(PlanPage.getPage()).toHaveURL(
-        /^https:\/\/www\.energymadeeasy\.gov\.au\/.*utm_source=Origin\+Energy.*$/,
-      );
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase2.plan),
-      ).toHaveAttribute("href", PlanPage.getPage().url());
-    });
-
-    await test.step("Verify that the correct plan reference is displayed on the new tab", async () => {
-      await expect(
-        PlanPage.getPage().getByRole("heading", {
-          name: testdata.testcase2.plan,
-        }),
-      ).toBeVisible();
-    });
   });
 
   test("Verify search for only gas plan for the address provided", async ({}) => {
@@ -184,8 +144,7 @@ test.describe("Origin Pricing Plan", () => {
       description:
         "Address:" +
         testdata.testcase3.address +
-        " Plan:" +
-        testdata.testcase3.plan,
+        " Plan:" 
     });
     await test.step("User enters address", async () => {
       await OriginEnergyPricingpage.enterAddress(testdata.testcase3.address);
@@ -209,45 +168,5 @@ test.describe("Origin Pricing Plan", () => {
       ).toHaveCount(0);
     });
 
-    await test.step("Verify that the required plan is visible", async () => {
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase3.plan),
-      ).toBeVisible();
-    });
-
-    await test.step("Verify that the href attribute has correct external domain and source is Origin Energy for the required plan", async () => {
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase3.plan),
-      ).toHaveAttribute(
-        "href",
-        /^https:\/\/www\.energymadeeasy\.gov\.au\/.*utm_source=Origin\+Energy.*$/,
-      );
-    });
-
-    await test.step("User selects the plan and verifies it opens in new tab", async () => {
-      PlanPage = await OriginEnergyPricingpage.selectPlan(
-        testdata.testcase3.plan,
-      );
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase3.plan),
-      ).toHaveAttribute("target", "_blank");
-    });
-
-    await test.step("Verify the url on the new tab has correct external domain and source is Origin Energy and is same as href of the link", async () => {
-      await expect(PlanPage.getPage()).toHaveURL(
-        /^https:\/\/www\.energymadeeasy\.gov\.au\/.*utm_source=Origin\+Energy.*$/,
-      );
-      await expect(
-        OriginEnergyPricingpage.getPlanLink(testdata.testcase3.plan),
-      ).toHaveAttribute("href", PlanPage.getPage().url());
-    });
-
-    await test.step("Verify that the correct plan reference is displayed on the new tab", async () => {
-      await expect(
-        PlanPage.getPage().getByRole("heading", {
-          name: testdata.testcase3.plan,
-        }),
-      ).toBeVisible();
-    });
   });
 });

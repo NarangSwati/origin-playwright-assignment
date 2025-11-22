@@ -26,7 +26,6 @@ export class BasePage {
       page: this.basePage,
     }).analyze();
     const issues = accessibilityScanResults.violations.length;
-    console.log(`ally found ${issues} issues on ${pagename}`);
     await this.testInfo.attach(`accessibility-scan-results- ${pagename}`, {
       body: JSON.stringify(accessibilityScanResults, null, 2),
       contentType: `application/json`,

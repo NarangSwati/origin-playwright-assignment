@@ -1,8 +1,15 @@
 import { defineConfig, devices } from "@playwright/test";
 import * as dotenv from "dotenv";
+import fs from "fs";
 import type { GitHubActionOptions } from "@estruyf/github-actions-reporter";
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+const envPath = `environment/.env.${process.env.NODE_ENV}`;
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath });
+} else {
+  // don't throw — rely on process.env values provided by CI (or local dev)
+  // dotenv not loaded because file is intentionally not checked in for QA
+}
 
 export default defineConfig({
   timeout: 60000,
@@ -17,9 +24,10 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 4 : undefined,
+  workers: process.env.CI ? 6 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
+    ["dot"],
     ["html"],
     [
       "@estruyf/github-actions-reporter",
