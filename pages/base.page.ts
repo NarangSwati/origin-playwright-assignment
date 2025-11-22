@@ -21,7 +21,7 @@ export class BasePage {
     await this.basePage.waitForLoadState("domcontentloaded");
   }
 
-  async a11yAnalysis(pagename:string) {
+  async a11yAnalysis(pagename: string) {
     const accessibilityScanResults = await new AxeBuilder({
       page: this.basePage,
     }).analyze();
