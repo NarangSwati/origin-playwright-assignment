@@ -6,9 +6,20 @@ import type { GitHubActionOptions } from "@estruyf/github-actions-reporter";
 const envPath = `environment/.env.${process.env.NODE_ENV}`;
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
-} else {
-  // don't throw — rely on process.env values provided by CI (or local dev)
-  // dotenv not loaded because file is intentionally not checked in for QA
+} 
+
+// Validate BASE_URL early
+if (!process.env.BASE_URL) {
+  throw new Error(
+    "Missing BASE_URL environment variable. In CI provide it via workflow secret (e.g. QA_BASE_URL) or create environment/.env.<env> locally."
+  );
+}
+try {
+  // validate format
+  // eslint-disable-next-line no-new
+  new URL(process.env.BASE_URL);
+} catch {
+  throw new Error(`Invalid BASE_URL value: ${process.env.BASE_URL}`);
 }
 
 export default defineConfig({

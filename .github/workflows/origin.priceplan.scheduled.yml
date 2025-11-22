@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HOME: /root
+      ENVIRONMENT: ${{ 'qa' }}
       BASE_URL: ${{ vars.BASE_URL }}
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
@@ -23,6 +24,11 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - name: Debug env
+        run: |
+          echo "ENVIRONMENT=$ENVIRONMENT"
+          echo "BROWSER=$BROWSER"
+          echo "BASE_URL=$BASE_URL"
       - name: Run Playwright tests
         run: npm run test:headlessqa
       - name: Upload artifacts
