@@ -1,4 +1,4 @@
-name: Origin Price Plan 
+name: Origin Price Plan
 on:
   push:
     branches: [ main ]
@@ -6,16 +6,30 @@ on:
     paths:
       - 'tests/*'
       - '.github/workflows/*'
+
 jobs:
   priceplan:
     name: 'Price plan Spec'
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.npm
+          node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Cache Playwright browsers
       uses: actions/cache@v4
       with:
@@ -23,17 +37,25 @@ jobs:
         key: ${{ runner.os }}-playwright-${{ hashFiles('package.json') }}
         restore-keys: |
           ${{ runner.os }}-playwright-
+
+    - name: Install Playwright OS dependencies
+      run: npx playwright install-deps
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: |
         if [ ! -d ~/.cache/ms-playwright ]; then
-        npx playwright install --with-deps
+          echo "Playwright browsers not found in cache. Installing..."
+          npx playwright install
         else
           echo "Playwright browsers restored from cache"
         fi
+
     - name: Run Playwright tests
       run: npm run test:headlessqa
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
