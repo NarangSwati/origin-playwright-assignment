@@ -34,9 +34,6 @@ This repository contains Playwright tests and supporting scripts to validate web
 
 - Workflow - `origin price Plan` runs based on a corn expression(i.e. every weekday at 9 am), merge to main and PR. This workflow can be run manualy where user can select the desired environment and execute the tests on demand.
 
-- Corresponding script in `package.json` used in `origin price Plan` is
-` npm run test:CI`
-
 - Each test run produce github action detailed summary, artefacts(playwright repots, traces and screenshots on failure) which is persited for 7 days and can be downloaded for analysis.
 
 ## Tools & Language
@@ -62,3 +59,6 @@ This repository contains Playwright tests and supporting scripts to validate web
 - Updated the workflow to use either user provided environment variable or default value via statement `environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'QA' }}`
 
 ## TODO's & Improvements
+- Current a11yAnalysis implementation is bare bones which produces a report as JSON response attachment. Next steps are to scope the scan and produce readable report.
+- Network request/response simulation.
+
