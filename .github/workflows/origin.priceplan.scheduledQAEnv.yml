@@ -1,14 +1,14 @@
 name: Origin Price Plan Scheduled
 on:
   workflow_dispatch:
-  inputs:
-    environment:
-      description: "Target environment"
-      type: choice
-      options:
+    inputs:
+      environment:
+        description: "Target environment"
+        type: choice
+        options:
         - qa
-      default: qa
-      required: true
+        default: qa
+        required: true
   schedule:
     # Runs at 9 AM weekdays
     - cron: "0 9 * * 1-5"
