@@ -6,8 +6,8 @@ on:
         description: "Target environment"
         type: choice
         options:
-        - qa
-        default: qa
+        - QA
+        default: QA
         required: true
   schedule:
     # Runs at 9 AM weekdays

@@ -20,10 +20,10 @@
     "install": "npx playwright install",
     "prettify": " prettier --write '**/*.{ts,json,spec.ts,yml}'",
     "showreport": "npx playwright show-report",
-    "test:accessibility": "cross-env NODE_ENV=qa npx playwright test tests/accessibility.spec.ts --project=chromium",
-    "test:debug": "cross-env PWDEBUG=1 npx playwright test tests/priceplan.spec.ts --project=chromium ",
-    "test:headedchrome": "npx playwright test tests/priceplan.spec.ts --headed --project=chromium",
-    "test:headlessqa": "cross-env NODE_ENV=qa npx playwright test --project=chromium"
+    "test:accessibilityChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test tests/accessibility.spec.ts --project=chromium",
+    "test:allHeadedChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test --headed --project=chromium",
+    "test:AllHeadlessQAEnv": "cross-env NODE_ENV=qa npx playwright test",
+    "test:debug": "cross-env PWDEBUG=1 npx playwright test tests/priceplan.spec.ts --project=chromium "
   },
   "type": "commonjs",
   "version": "1.0.0"
