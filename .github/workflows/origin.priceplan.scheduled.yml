@@ -11,10 +11,11 @@ jobs:
     name: "Price plan Spec Scheduled"
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    environment: QA
     env:
       HOME: /root
-      ENVIRONMENT: ${{ 'qa' }}
-      BASE_URL: ${{ vars.BASE_URL }}
+      ENVIRONMENT: ${{ 'QA' }}
+      BASE_URL: ${{ secrets.BASE_URL }}
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
     steps:
