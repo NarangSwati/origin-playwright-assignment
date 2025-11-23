@@ -1,6 +1,14 @@
 name: Origin Price Plan Scheduled
 on:
   workflow_dispatch:
+  inputs:
+    environment:
+      description: "Target environment"
+      type: choice
+      options:
+        - qa
+      default: qa
+      required: true
   schedule:
     # Runs at 9 AM weekdays
     - cron: "0 9 * * 1-5"
@@ -11,10 +19,9 @@ jobs:
     name: "Price plan Spec Scheduled"
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    environment: QA
+    environment: ${{ inputs.environment }}
     env:
       HOME: /root
-      ENVIRONMENT: ${{ 'QA' }}
       BASE_URL: ${{ vars.BASE_URL }}
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
