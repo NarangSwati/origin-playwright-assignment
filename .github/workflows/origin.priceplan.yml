@@ -1,11 +1,11 @@
 name: Origin Price Plan
-on:
-  push:
-    branches: [main]
-  pull_request:
-    paths:
-      - "tests/*"
-      - ".github/workflows/*"
+# on:
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   paths:
+  #     - "tests/*"
+  #     - ".github/workflows/*"
 
 jobs:
   priceplan:

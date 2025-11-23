@@ -23,6 +23,7 @@
     "test:accessibilityChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test tests/accessibility.spec.ts --project=chromium",
     "test:allHeadedChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test --headed --project=chromium",
     "test:AllHeadlessQAEnv": "cross-env NODE_ENV=qa npx playwright test",
+    "test:CI": "npx playwright test",
     "test:debug": "cross-env PWDEBUG=1 npx playwright test tests/priceplan.spec.ts --project=chromium "
   },
   "type": "commonjs",

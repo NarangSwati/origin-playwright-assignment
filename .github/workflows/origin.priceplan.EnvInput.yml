@@ -6,14 +6,18 @@ on:
         description: "Target environment"
         type: choice
         options:
-        - "QA"
-        default: "QA"
+        - QA
+        default: QA
         required: true
   schedule:
     # Runs at 9 AM weekdays
     - cron: "0 9 * * 1-5"
   push:
     branches: [main]
+  pull_request:
+    paths:
+      - "tests/*"
+      - ".github/workflows/*"
 jobs:
   priceplan:
     name: "Price plan Spec Scheduled"
@@ -32,12 +36,8 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Debug env
-        run: |
-          echo "ENVIRONMENT=${{ inputs.environment }}"
-          echo "BASE_URL=$BASE_URL"
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npm run test:CI
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
