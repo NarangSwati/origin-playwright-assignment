@@ -1,4 +1,4 @@
-import { test, expect, Request } from "@playwright/test";
+import { test } from "@playwright/test";
 import { OriginEnergyPricingPage } from "../pages/origin.energy.pricing.page";
 import { config } from "../utils/config";
 
@@ -10,13 +10,11 @@ test.describe("Origin Pricing Page accessibility test", () => {
       OriginEnergyPricingpage = new OriginEnergyPricingPage(page, testInfo);
       await OriginEnergyPricingpage.open(config.BASE_URL);
     });
-     });
+  });
 
-     test("Verify accessibility", async ({}) => {
-        
-        await test.step("for OriginEnergyPricingpage", async () => {
-          await OriginEnergyPricingpage.a11yAnalysis("OriginEnergyPricingpage");
-        });
+  test("Verify accessibility", async ({}) => {
+    await test.step("for OriginEnergyPricingpage", async () => {
+      await OriginEnergyPricingpage.a11yAnalysis("OriginEnergyPricingpage");
     });
-
+  });
 });

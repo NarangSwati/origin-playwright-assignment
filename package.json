@@ -18,7 +18,7 @@
   "name": "origin-playwright",
   "scripts": {
     "install": "npx playwright install",
-    "prettify": " prettier --write '**/*.{ts,json,spec.ts,yml}'",
+    "prettify": " prettier --write '**/*.{ts,json,spec.ts,yml}' --verbose",
     "showreport": "npx playwright show-report",
     "test:accessibilityChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test tests/accessibility.spec.ts --project=chromium",
     "test:allHeadedChromeQAEnv": "cross-env NODE_ENV=qa npx playwright test --headed --project=chromium",

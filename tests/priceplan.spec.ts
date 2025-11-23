@@ -19,9 +19,7 @@ test.describe("Origin Pricing Plan", () => {
     });
   });
 
-  test.afterEach(async ({ }) => {
-    
-  });
+  test.afterEach(async ({}) => {});
 
   test("Verify search for both elecricity and gas plan for the address provided and verify referral handover", async ({}) => {
     test.info().annotations.push({
@@ -109,10 +107,7 @@ test.describe("Origin Pricing Plan", () => {
   test("Verify search for only elecricity plan for the address provided", async ({}) => {
     test.info().annotations.push({
       type: "TestData",
-      description:
-        "Address:" +
-        testdata.testcase2.address +
-        " Plan:" 
+      description: "Address:" + testdata.testcase2.address + " Plan:",
     });
     await test.step("User enters address", async () => {
       await OriginEnergyPricingpage.enterAddress(testdata.testcase2.address);
@@ -135,16 +130,12 @@ test.describe("Origin Pricing Plan", () => {
         ),
       ).not.toHaveCount(0);
     });
-
   });
 
   test("Verify search for only gas plan for the address provided", async ({}) => {
     test.info().annotations.push({
       type: "TestData",
-      description:
-        "Address:" +
-        testdata.testcase3.address +
-        " Plan:" 
+      description: "Address:" + testdata.testcase3.address + " Plan:",
     });
     await test.step("User enters address", async () => {
       await OriginEnergyPricingpage.enterAddress(testdata.testcase3.address);
@@ -167,6 +158,5 @@ test.describe("Origin Pricing Plan", () => {
         ),
       ).toHaveCount(0);
     });
-
   });
 });

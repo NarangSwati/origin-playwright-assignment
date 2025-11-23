@@ -1,13 +1,12 @@
 export const testdata = {
   testcase1: {
     address: "12 Smith Street, SURRY HILLS NSW 2010",
-    plan: "Origin Solar Partner Plus"
+    plan: "Origin Solar Partner Plus",
   },
   testcase2: {
-    address: "12 Smith Street, SURRY HILLS NSW 2010"
-    
+    address: "12 Smith Street, SURRY HILLS NSW 2010",
   },
   testcase3: {
-    address: "12 Smith Street, SURRY HILLS NSW 2010"
-   }
+    address: "12 Smith Street, SURRY HILLS NSW 2010",
+  },
 };

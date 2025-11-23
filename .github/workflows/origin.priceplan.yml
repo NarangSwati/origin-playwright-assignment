@@ -1,42 +1,43 @@
 name: Origin Price Plan
-# on:
-  # push:
-  #   branches: [main]
-  # pull_request:
-  #   paths:
-  #     - "tests/*"
-  #     - ".github/workflows/*"
-
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        type: choice
+        options:
+          - QA
+        default: QA
+        required: optional
+  schedule:
+    # Runs at 9 AM weekdays
+    - cron: "0 9 * * 1-5"
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - "tests/*"
+      - ".github/workflows/*"
 jobs:
   priceplan:
     name: "Price plan Spec"
     timeout-minutes: 60
     runs-on: ubuntu-latest
-
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'QA' }}
+    env:
+      HOME: /root
+      BASE_URL: ${{ vars.BASE_URL }}
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - name: Cache Playwright browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-      - name: Install Playwright OS dependencies
-        run: npx playwright install-deps
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          echo "Cache miss: Installing Playwright browsers..."
-          npx playwright install
       - name: Run Playwright tests
-        run: npm run test:headlessqa
+        run: npm run test:CI
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

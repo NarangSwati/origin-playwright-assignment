@@ -6,7 +6,7 @@ import type { GitHubActionOptions } from "@estruyf/github-actions-reporter";
 const envPath = `environment/.env.${process.env.NODE_ENV}`;
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
-} 
+}
 
 export default defineConfig({
   timeout: 60000,
