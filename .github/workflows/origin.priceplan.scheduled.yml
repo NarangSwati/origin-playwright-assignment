@@ -15,7 +15,7 @@ jobs:
     env:
       HOME: /root
       ENVIRONMENT: ${{ 'QA' }}
-      BASE_URL: ${{ secrets.BASE_URL }}
+      BASE_URL: ${{ vars.BASE_URL }}
     container:
       image: mcr.microsoft.com/playwright:v1.56.1
     steps:

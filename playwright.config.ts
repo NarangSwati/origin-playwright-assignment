@@ -8,20 +8,6 @@ if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
 } 
 
-// Validate BASE_URL early
-if (!process.env.BASE_URL) {
-  throw new Error(
-    "Missing BASE_URL environment variable. In CI provide it via workflow secret (e.g. QA_BASE_URL) or create environment/.env.<env> locally."
-  );
-}
-try {
-  // validate format
-  // eslint-disable-next-line no-new
-  new URL(process.env.BASE_URL);
-} catch {
-  throw new Error(`Invalid BASE_URL value: ${process.env.BASE_URL}`);
-}
-
 export default defineConfig({
   timeout: 60000,
   expect: {
