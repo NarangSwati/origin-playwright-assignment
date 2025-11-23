@@ -28,10 +28,9 @@ jobs:
       - name: Debug env
         run: |
           echo "ENVIRONMENT=$ENVIRONMENT"
-          echo "BROWSER=$BROWSER"
           echo "BASE_URL=$BASE_URL"
       - name: Run Playwright tests
-        run: npm run test:headlessqa
+        run: npx playwright test
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
