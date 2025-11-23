@@ -9,9 +9,9 @@ if (fs.existsSync(envPath)) {
 }
 
 export default defineConfig({
-  timeout: 60000,
+  timeout: 30000,
   expect: {
-    timeout: 60000, // Or a higher value
+    timeout: 30000, // Or a higher value
   },
   testDir: "./tests",
   /* Run tests in files in parallel */
@@ -41,7 +41,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "retain-on-failure",
+    trace: "on",
     screenshot: "only-on-failure",
   },
 

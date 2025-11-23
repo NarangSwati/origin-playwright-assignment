@@ -14,17 +14,19 @@ This repository contains Playwright tests and supporting scripts to validate web
 ## Setup (local)
 1. Clone the repo:
    git clone https://github.com/NarangSwati/origin-playwright-assignment.git
-2. Create file inside `environment` folder as `.env.<YourEnv>` using the sample file `.env.qa.example` 
-3. Install dependencies: `npm run install`
+2. Create file inside `environment` folder as `.env.<YourEnv>` using the sample file `example.env.qa` 
+3. Install dependencies: `npm run setup`
 
 ## Running tests on local
-- In oder to run the tests from your local machine.
-   - Provide your environment as `NODE_ENV` example: `NODE_ENV=<YourEnv>`
-   - If `NODE_ENV` not provided, default value from config.js would be used. 
 - Scripts in `package.json` to run tests on QA Env.   
    - `npm run test:AllHeadlessQAEnv`   
    - `npm run test:allHeadedChromeQAEnv`   
-   - `npm run test:accessibilityChromeQAEnv`   
+   - `npm run test:accessibilityChromeQAEnv` 
+
+- In oder to run the tests from your local machine.
+   - Provide your environment as `NODE_ENV` in scripts example: `NODE_ENV=<YourEnv>`
+   - If `NODE_ENV` not provided, default value from config.js would be used. 
+
 - View Report: `npm run showreport`
 
 ## Current setup git-hubactions
@@ -60,4 +62,3 @@ This repository contains Playwright tests and supporting scripts to validate web
 - Updated the workflow to use either user provided environment variable or default value via statement `environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'QA' }}`
 
 ## TODO's & Improvements
- 
