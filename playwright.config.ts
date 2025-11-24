@@ -9,9 +9,9 @@ if (fs.existsSync(envPath)) {
 }
 
 export default defineConfig({
-  timeout: 30000,
+  timeout: 60000,
   expect: {
-    timeout: 30000, // Or a higher value
+    timeout: 10000, // Or a higher value
   },
   testDir: "./tests",
   /* Run tests in files in parallel */
