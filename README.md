@@ -61,4 +61,5 @@ This repository contains Playwright tests and supporting scripts to validate web
 ## TODO's & Improvements
 - Current a11yAnalysis implementation is bare bones which produces a report as JSON response attachment. Next steps are to scope the scan and produce readable report.
 - Network request/response simulation.
+- Move locators from spec.ts file to page class
 
