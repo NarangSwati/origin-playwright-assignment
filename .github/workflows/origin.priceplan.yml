@@ -10,8 +10,8 @@ on:
         default: QA
         required: true
   schedule:
-    # Runs at 9 AM weekdays
-    - cron: "0 9 * * 1-5"
+    # Runs at 5 PM weekdays, which is 6 AM UTC
+    - cron: "0 6 * * 1-5"
   push:
     branches: [main]
   pull_request:

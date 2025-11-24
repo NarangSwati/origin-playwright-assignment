@@ -32,7 +32,7 @@ This repository contains Playwright tests and supporting scripts to validate web
 ## Current setup git-hubactions
 - Environment variable `BASE_URL` is set to as `https://www.originenergy.com.au/pricing.html` for QA environment on github.
 
-- Workflow - `origin price Plan` runs based on a corn expression(i.e. every weekday at 9 am), merge to main and PR. This workflow can be run manualy where user can select the desired environment and execute the tests on demand.
+- Workflow - `origin price Plan` runs based on a corn expression(i.e. every weekday at 5 PM), merge to main and PR. This workflow can be run manualy where user can select the desired environment and execute the tests on demand.
 
 - Each test run produce github action detailed summary, artefacts(playwright repots, traces and screenshots on failure) which is persited for 7 days and can be downloaded for analysis.
 
